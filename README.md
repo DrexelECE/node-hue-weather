@@ -10,7 +10,7 @@
 
 ## Installation
 
-* Install [Node.js](https://nodejs.org/en/) and [git](https://git-scm.com/downloads).
+* Install [Node.js](https://nodejs.org/en/), [libpcap](https://wiki.wireshark.org/libpcap), and [git](https://git-scm.com/downloads).
 
 * Clone this repository:
 
@@ -67,7 +67,7 @@ node app -test
 
 ## Contributing
 
-Please don't
+Please don't:
 ```
 git add .
 ```
