@@ -1,0 +1,35 @@
+{
+  "name":"hue-weather",
+  "version":"0.1",
+  "description":"Listens for Amazon Dash Button input, checks the weather, and flashes Philips Hue light color based on today's temperature and precipitation outlook",
+  "author":"Greg Yeutter <yeutterg@gmail.com>",
+  "contributors":[{
+    "name":"James Kurtz",
+    "email":"jkrrv@jkrrv.org"
+  }],
+  "scripts":{
+    "test":"node app -test",
+    "start":"node app",
+  },
+  "main":"app.js",
+  "repository":{
+    "type":"git",
+    "url":"https://github.com/DrexelECE/node-hue-weather"
+  },
+  "bugs":{
+    "url":"https://github.com/DrexelECE/node-hue-weather/issues"
+  },
+  "keywords":[
+    "hue",
+    "dash",
+    "weather"
+  ],
+  "dependencies":{
+    "node-dash-button":"0.2.5",
+    "node-hue-api":"1.2.1"
+  },
+  "preferGlobal":false,
+  "private":false,
+  "analyze":true,
+  "license":"MIT"
+}
