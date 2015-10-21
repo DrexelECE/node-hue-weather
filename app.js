@@ -29,12 +29,23 @@ function getWeatherForecast() {
 
 /**
  * Gets the colors associated with the forecast
+ *
+ * @param error If any error
+ * @param temp Temp in Fahrenheit
+ * @param precip % Precipitation
  */
 function getColors(error, temp, precip) {
   if (error) throw error;
   color(temp, precip, controlHue);
 }
 
+/**
+ * Controls the hue lights
+ *
+ * @param error If any error
+ * @param tempRGB RGB for temp
+ * @param precRGB RGB for precip
+ */
 function controlHue(error, tempRGB, precRGB) {
   if (error) throw error;
   console.log("Temp RGB: " + tempRGB);

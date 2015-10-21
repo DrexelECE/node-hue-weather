@@ -1,7 +1,6 @@
 /**
  * Returns RGB values for the temperature and precipitation
  *
- * @param error If any error
  * @param temp The temperature in Fahrenheit
  * @param precip The chance of precipitation in %
  *
