@@ -1,6 +1,6 @@
 {
   "name":"hue-weather",
-  "version":"0.1",
+  "version":"0.0.1",
   "description":"Listens for Amazon Dash Button input, checks the weather, and flashes Philips Hue light color based on today's temperature and precipitation outlook",
   "author":"Greg Yeutter <yeutterg@gmail.com>",
   "contributors":[{
