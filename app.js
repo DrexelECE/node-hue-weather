@@ -20,11 +20,11 @@ function getWeatherForecast() {
   if (process.argv[2] == "-test") {
     console.log("Running in test mode!");
     weather = require('./testWeather');
-    weather(location, getColors);
   } else {
     weather = require('./weather');
-    weather(location, getColors);
   };
+
+  weather(location, getColors);
 }
 
 /**
