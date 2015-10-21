@@ -67,8 +67,9 @@ node app -test
 
 ## Contributing
 
-Run the following command to stop tracking the properties.json and log files:
+Please don't
+```
+git add .
+```
 
-```
-git rm --cached properties.json npm-debug.log
-```
+We want to not commit local properties.json and npm config info.
