@@ -64,3 +64,11 @@ Adding the flag '-test' will run the program offline, randomly generating weathe
 ```
 node app -test
 ```
+
+## Contributing
+
+Run the following command to stop tracking the properties.json file:
+
+```
+git rm --cached properties.json
+```
