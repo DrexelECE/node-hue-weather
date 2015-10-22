@@ -10,7 +10,13 @@
 
 ## Installation
 
-##### Install [Node.js](https://nodejs.org/en/), [libpcap](https://wiki.wireshark.org/libpcap), and [git](https://git-scm.com/downloads).
+##### Install dependencies
+
+[Node.js](https://nodejs.org/en/)
+
+[libpcap](https://wiki.wireshark.org/libpcap)
+
+[git](https://git-scm.com/downloads)
 
 ##### Clone this repository:
 
