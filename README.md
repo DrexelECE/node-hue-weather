@@ -10,12 +10,10 @@
 
 ## Installation
 
-##### Install dependencies
+##### Install the system dependencies:
 
 [Node.js](https://nodejs.org/en/)
-
 [libpcap](https://wiki.wireshark.org/libpcap)
-
 [git](https://git-scm.com/downloads)
 
 ##### Clone this repository:
@@ -24,7 +22,7 @@
 git clone https://github.com/DrexelECE/node-hue-weather.git
 ```
 
-##### Install the dependencies:
+##### Install the node dependencies:
 
 ```
 cd node-hue-weather
