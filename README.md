@@ -37,7 +37,14 @@ Download the [Amazon Shopping](https://www.amazon.com/gp/feature.html?ie=UTF8&do
 node findDash
 ```
 
-Follow the instructions to pair a button with the program.
+Press the button on the Dash Button when prompted. You may have to do this a few times depending on how many devices are submitting arp requests on your network. It also seems that you have to wait 10-20 seconds between button presses. Otherwise the button won't respond. Note that the Dash Button's MAC address should appear twice in succession.
+
+When you are confident you have found the correct MAC address for your Dash Button, ctrl-C to exit the findDash program and copy the MAC address. Then,
+
+```
+node addDash XX:XX:XX:XX:XX:XX
+```
+replacing the 'XX:XX:XX:XX:XX:XX' with the MAC address you want to add. You can add multiple Dash buttons by repeating this process.
 
 * Find a Philips Hue Bridge:
 
