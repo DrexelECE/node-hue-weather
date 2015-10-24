@@ -44,7 +44,7 @@ npm i
 
 Download the [Amazon Shopping](https://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000625601&forceHttps=0) smartphone app and connect the button to your WiFi network. Do not complete the setup process! Exit the app when you are asked to select a product.
 
-##### Add a Dash Button:
+##### Find and Add a Dash Button:
 
 From the /node-hue-weather folder:
 
@@ -61,7 +61,7 @@ node addDash XX:XX:XX:XX:XX:XX
 ```
 replacing the 'XX:XX:XX:XX:XX:XX' with the MAC address you want to add. You can add multiple Dash buttons by repeating this process.
 
-##### Find a Philips Hue Bridge:
+##### Find and Add a Philips Hue Bridge:
 
 ```
 node findHue
@@ -77,17 +77,17 @@ node addToProperties philips_hue_bridge_ip XXX.XXX.X.XXX
 
 where the Xs are replaced by the IP address of the bridge.
 
-##### Add the forecast.io API key to the properties file.
+##### Add the forecast.io API key:
 
 ```
 node addForecastApi APIKEY
 ```
 
-##### Add your location
+##### Add your location:
 
 TODO
 
-##### Add properties manually
+##### Add properties manually:
 
 Alternatively, you can add all the properties to the properties.json file manually. This is useful if one of the above processes fails or you already know some of the relevant information.
 
