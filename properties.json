@@ -2,7 +2,7 @@
   "location":"",
   "forecast_io_api_key":"",
   "philips_hue_bridge_ip":"",
-  "amazon_dash_buttons":[
+  "amazon_dash_button":[
     ""
   ]
 }
