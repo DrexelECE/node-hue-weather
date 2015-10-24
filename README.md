@@ -67,7 +67,9 @@ replacing the 'XX:XX:XX:XX:XX:XX' with the MAC address you want to add. You can 
 node findHue
 ```
 
-If a Hue bridge is found on the local network, its IP will automatically be added to the configuration file. Alternatively, you can add the IP of the bridge via:
+If a Hue bridge is found on the local network, its IP will automatically be added to the configuration file. Note that the first Hue bridge found will be added.
+
+Alternatively, you can add the IP of the bridge via:
 
 ```
 node addToProperties philips_hue_bridge_ip XXX.XXX.X.XXX
