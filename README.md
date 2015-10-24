@@ -93,7 +93,17 @@ TODO
 
 ##### Add properties manually:
 
-Alternatively, you can add all the properties to the properties.json file manually. This is useful if one of the above processes fails or you already know some of the relevant information.
+Alternatively, you can add some or all of the properties manually. This is useful if one of the above processes fails or you already know some of the relevant information. There are two ways to do this: (1) edit the properties.json file or (2) use the addToProperties program.
+
+addToProperties is used as such:
+```
+node addToProperties key value
+```
+
+where valid keys are 'location', 'philips_hue_bridge_ip', 'forecast_io_api_key', and 'amazon_dash_button', all without quotes. Enter the value without quotes. An example is:
+```
+node addToProperties philips_hue_bridge_ip 192.168.1.109
+```
 
 ## Running
 
