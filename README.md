@@ -40,7 +40,11 @@ npm i
 
 ## Setup
 
-##### Configure the Amazon Dash button.
+##### Configure your Philips Hue Lights:
+
+Use the instructions that came with your Philips Hue system to get this set up.
+
+##### Configure the Amazon Dash button:
 
 Download the [Amazon Shopping](https://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000625601&forceHttps=0) smartphone app and connect the button to your WiFi network. Do not complete the setup process! Exit the app when you are asked to select a product.
 
