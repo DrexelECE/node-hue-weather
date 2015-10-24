@@ -1,17 +1,13 @@
 var weather;
 var color = require('./color');
-var fs = require('fs');
+var props = require('./properties.json');
 
-var location = 0; // TODO
+var location = props['location'];
+var apiKey = props['forecast_io_api_key'];
+var hueIp = props['philips_hue_bridge_ip'];
+var dashButtons = props['amazon_dash_button'];
 
 getWeatherForecast();
-
-/**
- * Gets info from the properties file
- */
-function readPropertiesfile() {
-  // TODO
-}
 
 /**
  * Gets the weather forecast for the current location
