@@ -1,5 +1,6 @@
 var weather;
 var color = require('./color');
+var controlHue = require('./controlHue');
 var props = require('./properties.json');
 
 var location = props['location'];
@@ -33,19 +34,4 @@ function getWeatherForecast() {
 function getColors(error, temp, precip) {
   if (error) throw error;
   color(temp, precip, controlHue);
-}
-
-/**
- * Controls the hue lights
- *
- * @param error If any error
- * @param tempRGB RGB for temp
- * @param precRGB RGB for precip
- */
-function controlHue(error, tempRGB, precRGB) {
-  if (error) throw error;
-  console.log("Temp RGB: " + tempRGB);
-  console.log("Prec RGB: " + precRGB);
-
-  // TODO control the lights
 }
