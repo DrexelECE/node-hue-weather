@@ -12,8 +12,8 @@ module.exports = function(temp, precip, callback) {
 
   // TODO James implement the logic for converting values to colors
 
-  var tempRGB = [255,0,0];
-  var precRGB = [0,255,0];
+  var hueTemp = 0;
+  var huePrec = 240;
 
-  callback(null, tempRGB, precRGB);
+  callback(null, hueTemp, huePrec);
 }
