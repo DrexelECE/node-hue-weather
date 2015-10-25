@@ -27,7 +27,7 @@
   "dependencies":{
     "node-dash-button":"0.2.5",
     "node-hue-api":"1.2.1",
-    "async-waterfall":"0.1.5"
+    "async":"1.4.2"
   },
   "preferGlobal":false,
   "private":false,
