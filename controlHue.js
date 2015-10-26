@@ -8,6 +8,8 @@ var hueIp = props['philips_hue_bridge_ip'];
 var username = 'nodeHueWeather';
 var api = new HueApi(hueIp, username);
 
+var oldStates = {};
+
 /**
  * Controls hue lights to the first RGB state, then the second, then the
  * previous light state
@@ -33,29 +35,23 @@ module.exports = function(error, hue1, hue2) {
             callback(null, lightIds);
         },
         function(lightIds, callback) {
-            var oldStates = [];
             lightIds.forEach(function(id) {
                 api.lightStatus(id, function(err, result) {
-                    if (err) throw err;
-                    else {
-                      console.log(result);
-                      oldStates.push(result['state']);
+                    if (result) {
+                        oldStates[id] = result['state'];
                     }
                 });
+
             });
-            callback(null, oldStates);
+            callback(null);
         },
-        function(oldStates, hue1, hue2, callback) {
-            var state1 = lightState.create().on().brightness(100).transition(0).hsb(hue1, 100, 100);
-            var state2 = state1.copy().hsb(hue2, 100, 100);
+        function(callback) {
 
-            api.setGroupLightState(0, state1)
-                .fail(console.log)
-                .done();
+            var state1 = lightState.create().shortAlert().hsb(hue1, 100, 100);
+            var state2 = lightState.create().shortAlert().hsb(hue2, 100, 100);
 
-            api.setGroupLightState(0, state2)
-                .fail(console.log)
-                .done();
+            ctrlAllLights(state1);
+            //setTimeout(ctrlAllLights(state2), 5000);
 
             // api.setGroupLightState(0, oldState)
             //     .fail(displayError)
@@ -64,4 +60,18 @@ module.exports = function(error, hue1, hue2) {
     ], function(err, res) {
         console.log(res)
     })
+}
+
+function ctrlAllLights(state) {
+    console.log('ctrl')
+    api.setGroupLightState(0, state)
+        .fail(console.log)
+        .done();
+}
+
+function ctrlLight(light, state) {
+    console.log('ctrl')
+    api.setLightState(light, state)
+        .fail(console.log)
+        .done();
 }
