@@ -90,10 +90,12 @@ node addForecastApi APIKEY
 ##### Add your location:
 
 	node addLocation lat long
-	
-For instance, for Philadelphia, PA, one might use: 
-	
+
+For instance, for Philadelphia, USA, one might use:
+
 	node addLocation 39.9540 -75.1880
+
+Note that south latitudes and west longitudes should be negative.
 
 ##### Add properties manually:
 
@@ -129,5 +131,5 @@ node app -test
 
 Unless you're very deliberately contributing something for the properties file, please run `git update-index --assume-unchanged properties.json`
 
-This will prevent git from showing your local properties in `git status` and `git diff`, and thus make it much harder 
+This will prevent git from showing your local properties in `git status` and `git diff`, and thus make it much harder
 for you to accidentally commit your local configurations.  Read more [here](http://stackoverflow.com/a/18277622/2339939).
