@@ -8,4 +8,4 @@ addApiKey();
 function addApiKey() {
     if (process.argv[2]) props.addProp('forecast_io_api_key', process.argv[2]);
     else console.log("Error: Invalid input.");
-};
+}
