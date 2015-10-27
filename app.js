@@ -21,7 +21,7 @@ function getWeatherForecast() {
     weather = require('./weather');
   };
 
-  weather(location, getColors);
+  weather(location, getColors, apiKey);
 }
 
 /**

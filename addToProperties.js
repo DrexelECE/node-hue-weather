@@ -2,7 +2,9 @@ var filePath = './properties.json';
 var json = require(filePath);
 var fs = require('fs');
 
-manual();
+if (process.argv[1].indexOf("addToProperties") > -1) { // prevents calling manual when required by other scripts
+    manual();
+}
 
 /**
  * Adds the selected property to the properties.json file
