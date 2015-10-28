@@ -62,7 +62,7 @@ function getJSON(options, onResult) {
     var prot = options.port == 443 ? https : http;
     var req = prot.request(options, function (res) {
         var output = '';
-        console.log(options.host + ':' + res.statusCode);
+        //console.log(options.host + ':' + res.statusCode); //debug
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {

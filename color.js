@@ -12,9 +12,9 @@ module.exports = function(temp, precip, callback) {
   if (isNaN(precip)) callback(new Error("precip is not numeric"), null, null);
   if (isNaN(temp)) callback(new Error("temp is not numeric"), null, null);
 
-  var hueTemp = 170 + (0.85 * temp); // blue (0 degF) to red (100 degF), via magenta
+  var hueTemp = Math.floor(170 + (0.85 * temp)); // blue (0 degF) to red (100 degF), via magenta
 
-  var huePrec = 42 + (85 * precip); // yellow (0%) to cyan (100%), via green
+  var huePrec = Math.floor(42 + (85 * precip)); // yellow (0%) to cyan (100%), via green
 
   callback(null, hueTemp, huePrec);
 };
