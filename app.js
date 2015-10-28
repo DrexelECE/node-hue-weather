@@ -2,11 +2,14 @@ var weather;
 var color = require('./color');
 var controlHue = require('./controlHue');
 var props = require('./properties.json');
+var dash_button = require('node-dash-button');
 
 var location = props['location'];
 var apiKey = props['forecast_io_api_key'];
 var hueIp = props['philips_hue_bridge_ip'];
 var dashButtons = props['amazon_dash_button'];
+
+var dash = dash_button(dashButtons);
 
 getWeatherForecast();
 
@@ -33,5 +36,12 @@ function getWeatherForecast() {
  */
 function getColors(error, temp, precip) {
   if (error) throw error;
-  color(temp, precip, controlHue);
+  //color(temp, precip, controlHue);
 }
+
+/**
+ * Responds when a dash button is pressed
+ */
+dash.on("detected", function (dash_id){
+   console.log('Dash Button ' + dash_id + ' detected.');
+});
