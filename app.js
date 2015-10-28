@@ -1,20 +1,25 @@
-var weather;
-var color = require('./color');
-var controlHue = require('./controlHue');
-var props = require('./properties.json');
-var dash_button = require('node-dash-button');
+var weather,
+    color = require('./color'),
+    controlHue = require('./controlHue'),
+    props = require('./properties.json'),
+    dash_button = require('node-dash-button'),
+    later = require('later');
 
-var location = props['location'];
-var apiKey = props['forecast_io_api_key'];
-var hueIp = props['philips_hue_bridge_ip'];
-var dashButtons = props['amazon_dash_button'];
+var location = props['location'],
+    apiKey = props['forecast_io_api_key'],
+    hueIp = props['philips_hue_bridge_ip'],
+    dashButtons = props['amazon_dash_button'];
 
 var dash = dash_button(dashButtons);
 
-var tHue = 0;
-var pHue = 0;
+var tHue = 0,
+    pHue = 0;
 
-getWeatherForecast(); // TODO James run this on a set interval like 4 h
+later.date.localTime();
+
+getWeatherForecast();   // Get forecast at program start
+var sched = later.parse.text('at 12:01 AM');  // Also once per day
+later.setInterval(getWeatherForecast, sched);
 
 /**
  * Gets the weather forecast for the current location
