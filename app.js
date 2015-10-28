@@ -11,7 +11,14 @@ var dashButtons = props['amazon_dash_button'];
 
 var dash = dash_button(dashButtons);
 
-getWeatherForecast();
+// TODO James set these to the results of the forecast and color checks
+// not strictly necessary to store the temp and prec, but definitely the hues
+var temp = 50;  // deg F
+var prec = 50;  // %
+var tHue = 0;
+var pHue = 0;
+
+getWeatherForecast(); // TODO James run this on a set interval like 4 h
 
 /**
  * Gets the weather forecast for the current location
@@ -44,4 +51,5 @@ function getColors(error, temp, precip) {
  */
 dash.on("detected", function (dash_id){
    console.log('Dash Button ' + dash_id + ' detected.');
+   controlHue(null, tHue, pHue);
 });
