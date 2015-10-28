@@ -1,6 +1,11 @@
 {
-  "location":"",
-  "forecast_io_api_key":"",
-  "philips_hue_bridge_ip":"",
-  "amazon_dash_button":[]
+	"location": {
+		"lat": ,
+		"lng": 
+	},
+	"forecast_io_api_key": "",
+	"philips_hue_bridge_ip": "",
+	"amazon_dash_button": [
+		""
+	]
 }
