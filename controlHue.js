@@ -10,19 +10,17 @@ var oldStates = {};
  * Controls hue lights to the first hue state, then the second, then the
  * previous light state
  *
- * @param hue1 The first hue value (0-359)
- * @param hue2 The second hue value (0-359)
+ * @param hue1 The first hue value (0-0xFFFF)
+ * @param hue2 The second hue value (0-0xFFFF)
  */
 module.exports = function(error, hue1, hue2) {
     if (error) throw error;
 
-    var state1 = buildHueState(hue1, 254, 100)
+    var state1 = buildHueState(hue1, 254, 100);
+    var state2 = buildHueState(hue2, 254, 100);
 
-    setGroupState(0, state1, function(err, res) {
-        if (err) throw err;
-        console.log('result: ' + res);
-    })
-
+    setGroupState(0, state1);
+    setTimeout(function() {setGroupState(0, state2)}, 2000);
 }
 
 /**
@@ -34,26 +32,38 @@ module.exports = function(error, hue1, hue2) {
  * @callback the response from the bridge
  */
 function setGroupState(group, state, callback) {
-    var url = 'http://' + hueIp + "/api/" + username +
-        "/groups/" + group + "/action";
+    console.log('setting group state: ' + state);
+
+    var url = "/api/" + username + "/groups/" + group + "/action";
 
     var req = http.request({
         method: 'PUT',
-        hostname: url
+        hostname: hueIp,
+        path: url,
     }, callback);
 
     req.write(state);
+    req.on('error', function (error) {
+      console.log('problem with request' + error);
+    });
+    req.end();
 }
 
 /**
  * Builds a state with a specified hue and brightness
  *
- * @param hue the hue to set to (0-359)
+ * @param hue the hue to set to (0-0xFFFF)
  * @param bri the brightness to set to (0-254)
  * @param trans the transition time in ms
  *
  * @callback The light state in JSON format
  */
 function buildHueState(hue, bri, trans) {
-    return JSON.stringify({on: true, bri: bri, hue: hue, transitiontime: trans/100})
+    return JSON.stringify({
+      on: true,
+      bri: bri,
+      hue: hue,
+      sat: 254,
+      transitiontime: trans/100
+    })
 }
