@@ -14,7 +14,7 @@ module.exports = function(temp, precip, callback) {
 
   var hueTemp = Math.floor(43520 + (0.85 * temp * 255)); // blue (0 degF) to red (100 degF), via magenta
 
-  var huePrec = Math.floor(10710 + (85 * precip * 255)); // yellow (0%) to cyan (100%), via green
+  var huePrec = Math.floor(10710 + (0.85 * precip * 255)); // yellow (0%) to cyan (100%), via green
 
   callback(null, hueTemp, huePrec);
 };
