@@ -1,17 +1,13 @@
-var hue = require("node-hue-api");
 var props = require('./properties.json');
-var async = require('async');
+var http = require('http');
 
-var HueApi = hue.HueApi;
-var lightState = hue.lightState;
 var hueIp = props['philips_hue_bridge_ip'];
 var username = 'nodeHueWeather';
-var api = new HueApi(hueIp, username);
 
 var oldStates = {};
 
 /**
- * Controls hue lights to the first RGB state, then the second, then the
+ * Controls hue lights to the first hue state, then the second, then the
  * previous light state
  *
  * @param hue1 The first hue value (0-359)
@@ -20,58 +16,44 @@ var oldStates = {};
 module.exports = function(error, hue1, hue2) {
     if (error) throw error;
 
-    async.waterfall([
-        function(callback) {
-            api.lights(function(err, lights) {
-                if (err) throw err;
-                callback(null, lights);
-            })
-        },
-        function(lights, callback) {
-            var lightIds = [];
-            lights['lights'].forEach(function(light) {
-                lightIds.push(parseInt(light['id']));
-            });
-            callback(null, lightIds);
-        },
-        function(lightIds, callback) {
-            lightIds.forEach(function(id) {
-                api.lightStatus(id, function(err, result) {
-                    if (result) {
-                        oldStates[id] = result['state'];
-                    }
-                });
+    var state1 = buildHueState(hue1, 254, 100)
 
-            });
-            callback(null);
-        },
-        function(callback) {
-
-            var state1 = lightState.create().shortAlert().hsb(hue1, 100, 100);
-            var state2 = lightState.create().shortAlert().hsb(hue2, 100, 100);
-
-            ctrlAllLights(state1);
-            //setTimeout(ctrlAllLights(state2), 5000);
-
-            // api.setGroupLightState(0, oldState)
-            //     .fail(displayError)
-            //     .done();
-        }
-    ], function(err, res) {
-        console.log(res)
+    setGroupState(0, state1, function(err, res) {
+        if (err) throw err;
+        console.log('result: ' + res);
     })
+
 }
 
-function ctrlAllLights(state) {
-    console.log('ctrl')
-    api.setGroupLightState(0, state)
-        .fail(console.log)
-        .done();
+/**
+ * Sets the valid light state for a specified group
+ *
+ * @param group the group number
+ * @param state the light state to set
+ *
+ * @callback the response from the bridge
+ */
+function setGroupState(group, state, callback) {
+    var url = 'http://' + hueIp + "/api/" + username +
+        "/groups/" + group + "/action";
+
+    var req = http.request({
+        method: 'PUT',
+        hostname: url
+    }, callback);
+
+    req.write(state);
 }
 
-function ctrlLight(light, state) {
-    console.log('ctrl')
-    api.setLightState(light, state)
-        .fail(console.log)
-        .done();
+/**
+ * Builds a state with a specified hue and brightness
+ *
+ * @param hue the hue to set to (0-359)
+ * @param bri the brightness to set to (0-254)
+ * @param trans the transition time in ms
+ *
+ * @callback The light state in JSON format
+ */
+function buildHueState(hue, bri, trans) {
+    return JSON.stringify({on: true, bri: bri, hue: hue, transitiontime: trans/100})
 }
