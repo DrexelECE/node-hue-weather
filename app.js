@@ -62,9 +62,9 @@ dash.on("detected", function (dash_id){
       console.log('Dash Button ' + dash_id + ' detected.');
       withinTimeout = true; // Block input to prevent extraneous arp reqs
       setTimeout(function() {
-          // Unblock after 35 s
+          // Unblock after 45 s
           withinTimeout = false
-      }, 35000);
+      }, 45000);
       controlHue(null, tHue, pHue);
     }
 });
