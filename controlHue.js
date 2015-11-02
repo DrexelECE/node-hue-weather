@@ -60,63 +60,83 @@ function getAllLightStates() {
  */
 function parseData(data) {
     if (data.indexOf('state') > -1) {
-        // If this is a state
-        console.log(data)
+        // If this is a state report
 
-        // RegEx for num only
-        var numOnly = /^\d+$/;
+        // RegEx for numbers only
+        var numOnly = /\d+/g;
 
-        var id;
+        // For storing the state
+        var state = {};
 
-        // Get the on state
+        // Get the id
+        var i = data.indexOf('state');
+        var id = data.substring(i-6, i-4);
+        var num = id.match(numOnly);
+        if (num) id = num[0];
+
+        // Get the on/off state
         var on = true;
-        var i = data.indexOf('on');
+        i = data.indexOf('on');
         if (data.substring(i+4, i+5) === 'f') {
             on = false;
         }
+        state["on"] = on;
 
-        // Get the brightness
-        i = data.indexOf('bri');
-        var bri = data.substring(i+5, i+8);
-        var num = numOnly.exec(bri);
-        if (num) bri = num[0];
+        if (on) {
 
-        console.log("on: " + on + " bri: " + bri);
+          // Get the brightness
+          i = data.indexOf('bri');
+          var bri = data.substring(i+5, i+8);
+          var num = bri.match(numOnly);
+          if (num) bri = num[0];
+          state["bri"] = bri;
 
-        if (data.indexOf('hue') > -1) {
-            // If this is a color bulb
+          if (data.indexOf('hue') > -1) {
+              // If this is a color bulb
 
-            // Get the hue
-            i = data.indexOf('hue');
-            var hue = data.substring(i+5, i+8);
-            var num = numOnly.exec(hue);
-            if (num) hue = num[0];
+              // Get the color mode
+              i = data.indexOf('colormode');
+              var colormode = data.substring(i+12, i+14);
 
-            // Get the saturation
-            i = data.indexOf('sat');
-            var sat = data.substring(i+5, i+8);
-            var num = numOnly.exec(sat);
-            if (num) sat = num[0];
+              if (colormode === 'xy') {
 
-            // Get the xy vals
-            i = data.indexOf('xy');
-            var xy = data.substring(i+4, i+19);
+                  // Get the xy vals
+                  i = data.indexOf('xy');
+                  var xy = data.substring(i+4, i+19);
+                  state["xy"] = xy;
 
-            // Get the ct
-            i = data.indexOf('\"ct\"');
-            var ct = data.substring(i+5, i+8);
-            var num = numOnly.exec(ct);
-            if (num) ct = num[0];
+              } else if (colormode === 'hs') {
 
-            // Get the color mode
-            var colormode;
+                  // Get the hue
+                  i = data.indexOf('hue');
+                  var hue = data.substring(i+5, i+8);
+                  var num = hue.match(numOnly);
+                  if (num) hue = num[0];
+                  state["hue"] = hue;
 
-            console.log('hue: ' + hue + ' sat: ' + sat + ' xy: ' + xy +
-              ' ct: ' + ct);
+                  // Get the saturation
+                  i = data.indexOf('sat');
+                  var sat = data.substring(i+5, i+8);
+                  var num = sat.match(numOnly);
+                  if (num) sat = num[0];
+                  state["sat"] = sat;
 
-        } else {
+              } else if (colormode == 'ct') {
 
+                  // Get the ct
+                  i = data.indexOf('\"ct\"');
+                  var ct = data.substring(i+5, i+8);
+                  var num = ct.match(numOnly);
+                  if (num) ct = num[0];
+                  state["ct"] = ct;
+
+              } else console.error("Could not get the color mode for id: " + id);
         }
+      }
+
+      // Add the state to the oldStates array
+      if (id) oldStates[id] = state;
+
     }
 }
 
@@ -130,16 +150,41 @@ function parseData(data) {
  */
 function setGroupState(group, state, callback) {
     var url = "/api/" + username + "/groups/" + group + "/action";
+    putDataRequest(url, state, callback);
+}
 
+/**
+ * Sets the valid light state for a light
+ *
+ * @param if the light id
+ * @param state the light state to set
+ *
+ * @callback the response from the bridge
+ */
+function setLightState(id, state, callback) {
+    var url = "/api/" + username + "/lights/" + id + "/state";
+    putDataRequest(url, state, callback);
+}
+
+/**
+ * Send a put request
+ *
+ * @param url the path
+ * @param body the request body
+ *
+ * @callback the result
+ */
+function putDataRequest(url, body, callback) {
     var req = http.request({
         method: 'PUT',
         hostname: hueIp,
         path: url
     }, callback);
 
-    req.write(state);
+    req.write(body);
     req.on('error', function (error) {
       console.log('Problem with request: ' + error);
+      callback(error);
     });
     req.end();
 }
@@ -168,4 +213,8 @@ function buildHueState(hue, bri, trans) {
  */
 function returnToOriginalState() {
     console.log('Return to original state');
+
+    oldStates.forEach(function(state) {
+        console.log(state)
+    })
 }
