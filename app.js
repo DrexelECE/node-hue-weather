@@ -15,6 +15,8 @@ var dash = dash_button(dashButtons);
 var tHue = 0,
     pHue = 0;
 
+var withinTimeout = false;
+
 later.date.localTime();
 
 getWeatherForecast();   // Get forecast at program start
@@ -56,6 +58,13 @@ function getColors(error, temp, precip) {
  * Responds when a dash button is pressed
  */
 dash.on("detected", function (dash_id){
-   console.log('Dash Button ' + dash_id + ' detected.');
-   controlHue(null, tHue, pHue);
+    if (!withinTimeout) {
+      console.log('Dash Button ' + dash_id + ' detected.');
+      withinTimeout = true; // Block input to prevent extraneous arp reqs
+      setTimeout(function() {
+          // Unblock after 35 s
+          withinTimeout = false
+      }, 35000);
+      controlHue(null, tHue, pHue);
+    }
 });
