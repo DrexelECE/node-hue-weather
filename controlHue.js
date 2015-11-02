@@ -89,7 +89,7 @@ function parseData(data) {
           var bri = data.substring(i+5, i+8);
           var num = bri.match(numOnly);
           if (num) bri = num[0];
-          state["bri"] = bri;
+          state["bri"] = parseInt(bri);
 
           if (data.indexOf('hue') > -1) {
               // If this is a color bulb
@@ -103,6 +103,8 @@ function parseData(data) {
                   // Get the xy vals
                   i = data.indexOf('xy');
                   var xy = data.substring(i+4, i+19);
+                  var num = xy.match(numOnly);
+                  if (num) xy = [parseInt(num[0]), parseInt(num[1])];
                   state["xy"] = xy;
 
               } else if (colormode === 'hs') {
@@ -112,14 +114,14 @@ function parseData(data) {
                   var hue = data.substring(i+5, i+8);
                   var num = hue.match(numOnly);
                   if (num) hue = num[0];
-                  state["hue"] = hue;
+                  state["hue"] = parseInt(hue);
 
                   // Get the saturation
                   i = data.indexOf('sat');
                   var sat = data.substring(i+5, i+8);
                   var num = sat.match(numOnly);
                   if (num) sat = num[0];
-                  state["sat"] = sat;
+                  state["sat"] = parseInt(sat);
 
               } else if (colormode == 'ct') {
 
@@ -128,7 +130,7 @@ function parseData(data) {
                   var ct = data.substring(i+5, i+8);
                   var num = ct.match(numOnly);
                   if (num) ct = num[0];
-                  state["ct"] = ct;
+                  state["ct"] = parseInt(ct);
 
               } else console.error("Could not get the color mode for id: " + id);
         }
@@ -209,12 +211,24 @@ function buildHueState(hue, bri, trans) {
 }
 
 /**
- * Returns the lights to their original state
+ * Returns the lights to their original states
  */
 function returnToOriginalState() {
-    console.log('Return to original state');
+    // Run 2x
+    setToOriginalState();
+    setTimeout(function() {
+        setToOriginalState()
+    }, Object.keys(oldStates).length*100 + 100);
+}
 
-    oldStates.forEach(function(state) {
-        console.log(state)
-    })
+/**
+ * Sets the lights to their original states
+ */
+function setToOriginalState() {
+    Object.keys(oldStates).forEach(function(id, index) {
+        setTimeout(function() {
+            // Need to slow down calls to the bridge
+            setLightState(id, JSON.stringify(oldStates[id]), function(res) {});
+        }, index*100)
+    });
 }
