@@ -11,5 +11,13 @@ module.exports = function (location, callback) {
   var tempFahrenheit = Math.round(Math.random() * 100);
   var precipPercent = Math.round(Math.random() * 100);
 
+  var cal = new Date();
+  var date = cal.toDateString();
+  var time = cal.toLocaleTimeString();
+
+  console.log("Today's forecast: Temperature: " + tempFahrenheit +
+      " F, Precipitation: " + precipPercent + "%. Retrieved " +
+      date + ' ' + time + '.');
+
   callback(null, tempFahrenheit, precipPercent);
 }

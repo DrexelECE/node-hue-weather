@@ -36,8 +36,13 @@ module.exports = function (location, callback, apiKey) {
                     callback(e, null, null)
                 }
 
-                console.log("Temperature: " + tempF +
-                    " F, Precipitation: " + precipPct + "%.");
+                var cal = new Date();
+                var date = cal.toDateString();
+                var time = cal.toLocaleTimeString();
+
+                console.log("Today's forecast: Temperature: " + tempF +
+                    " F, Precipitation: " + precipPct + "%. Retrieved " +
+                    date + ' ' + time + '.');
 
                 callback(null, tempF, precipPct); // null for no error!
             }
