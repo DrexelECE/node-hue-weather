@@ -11,8 +11,5 @@ module.exports = function (location, callback) {
   var tempFahrenheit = Math.round(Math.random() * 100);
   var precipPercent = Math.round(Math.random() * 100);
 
-  console.log("Temperature: " + tempFahrenheit +
-    " F, Precipitation: " + precipPercent + "%." );
-
   callback(null, tempFahrenheit, precipPercent);
 }
