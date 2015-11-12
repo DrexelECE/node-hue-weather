@@ -1,3 +1,6 @@
+[![Watch Description Video](https://i.ytimg.com/vi/JX-fXwc7Oh0/maxresdefault.jpg "Watch Description Video")](https://www.youtube.com/embed/JX-fXwc7Oh0?rel=0&amp;showinfo=0)
+
+
 ## Requirements
 
 * [Philips Hue](http://www2.meethue.com/en-us/) bridge and at least one light.
