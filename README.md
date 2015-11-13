@@ -13,6 +13,8 @@
 
 ## Installation
 
+You can find a video walktough of the setup procedure [here](https://www.youtube.com/watch?v=i7qyGrMk5xc). 
+
 ##### Install the system dependencies:
 
 The primary dependencies are [Node.js](https://nodejs.org/en/),
